@@ -23,6 +23,15 @@ public class PlayerController : Unit
     [SerializeField]
     private KeyCode _JumpKey = KeyCode.Space;
 
+    [SerializeField]
+    private float _BackwardsSpeedMultiplier = 0.33f;
+
+    [SerializeField]
+    private float _NormalSpeedMultiplier = 1;
+
+    [SerializeField]
+    private float _SidewaysSpeedMultiplier = 0.66f;
+
     private Transform _Cam;
     private Rigidbody _RB;
     private float _XInput;
@@ -56,8 +65,8 @@ public class PlayerController : Unit
         var newVel = new Vector3(_XInput, 0f, _ZInput) * _MoveSpeed * _SpeedMult;
         newVel = transform.TransformVector(newVel);
         newVel.y = _JumpPressed ? _JumpSpeed : _RB.velocity.y;
-        _RB.velocity = newVel;
-        
+        _RB.velocity = newVel;     
+
         _JumpPressed = false;
     }
 
@@ -95,22 +104,31 @@ public class PlayerController : Unit
     {
         _XInput = Input.GetAxis("Horizontal");
         _ZInput = Input.GetAxis("Vertical");
-        // if(Input.GetKey(KeyCode.LeftShift) == true)
-        // {
-        //     _SpeedMult = _MoveSpeedMult;
-        // }
-        // else
-        // {
-        //     _SpeedMult = 1f;
-        // }
+        UpdateSpeedMult(_XInput, _ZInput);
 
-        //Ternary operator
-        _SpeedMult = Input.GetKey(_SprintKey) ? _MoveSpeedMult : 1f;
-
-        if(Input.GetKeyDown(_JumpKey))
+        if (Input.GetKeyDown(_JumpKey))
         {
             _JumpPressed = true;
             _Anim.SetTrigger("Jump");
+        }
+    }
+
+    private void UpdateSpeedMult(float xInput, float zInput)
+    {
+        _SpeedMult = Input.GetKey(_SprintKey) ? _MoveSpeedMult : _NormalSpeedMultiplier;
+        if (zInput < 0)
+        {
+            _SpeedMult = Mathf.Clamp(_SpeedMult, 0, _SpeedMult * _BackwardsSpeedMultiplier);
+            Debug.Log($"Moving backwards {_SpeedMult}");
+        }
+        else if (zInput > 0)
+        {
+            _SpeedMult = Mathf.Clamp(_SpeedMult, 0, _SpeedMult * _NormalSpeedMultiplier);
+            Debug.Log($"Moving forwards {_SpeedMult}");
+        }
+        else if (Math.Abs(xInput) > 0) {
+            _SpeedMult = Mathf.Clamp(_SpeedMult, 0, _SpeedMult * _SidewaysSpeedMultiplier);
+            Debug.Log($"Moving sidewards {_SpeedMult}");
         }
     }
 
