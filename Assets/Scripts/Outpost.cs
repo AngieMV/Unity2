@@ -14,10 +14,13 @@ public class Outpost : MonoBehaviour
 
     private SkinnedMeshRenderer _FlagRenderer;
 
+    private AudioSource _AudioSource;
+
     private void OnEnable()
     {
         OutpostList.Add(this);
         _FlagRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        _AudioSource = GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -30,15 +33,22 @@ public class Outpost : MonoBehaviour
         var unit = other.GetComponent<Unit>();
         if(unit == null || unit.IsAlive == false) return;
 
-        if(unit.TeamNumber == CurrentTeam)
+        if (unit.TeamNumber == CurrentTeam)
         {
             CaptureValue += Time.fixedDeltaTime / _CaptureTime;
-            if(CaptureValue > 1f) CaptureValue = 1f;
+            if (CaptureValue > 1f)
+            {
+                CaptureValue = 1f;
+                if (!_AudioSource.isPlaying)
+                {
+                    _AudioSource.Play();
+                }
+            }
         }
         else
         {
             CaptureValue -= Time.fixedDeltaTime / _CaptureTime;
-            if(CaptureValue <= 0)
+            if (CaptureValue <= 0)
             {
                 CaptureValue = 0f;
                 CurrentTeam = unit.TeamNumber;
