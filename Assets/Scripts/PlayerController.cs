@@ -8,6 +8,8 @@ public class PlayerController : Unit
     [SerializeField]
     private Transform _CamPivot;
 
+    private float _CameraRotationX;
+
     [SerializeField]
     private float _MoveSpeed = 5f;
 
@@ -135,9 +137,11 @@ public class PlayerController : Unit
     private void ApplyCameraRotation()
     {
         var mouseX = Input.GetAxisRaw("Mouse X");
-        var mouseY = Input.GetAxisRaw("Mouse Y");
         transform.Rotate(0f, mouseX, 0f);
-        _CamPivot.Rotate(-mouseY, 0f, 0f);
+
+        _CameraRotationX +=  Input.GetAxisRaw("Mouse Y");
+        _CameraRotationX = Mathf.Clamp(_CameraRotationX, -90f, 90f);
+        _CamPivot.localRotation = Quaternion.Euler(-_CameraRotationX, 0f, 0f);
     }
 
 }
