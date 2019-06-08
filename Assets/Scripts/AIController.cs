@@ -78,7 +78,7 @@ public class AIController : Unit
             LookForEnemy();
             yield return null;
         }
-
+        _Anim.SetTrigger("Celebrate");
         _TargetOutpost = null;
         SetState(State_Idle());
     }

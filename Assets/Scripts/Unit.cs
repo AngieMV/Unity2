@@ -77,6 +77,6 @@ public abstract class Unit : MonoBehaviour
 	protected virtual void Die()
 	{
 		IsAlive = false;
-		_Anim.SetBool("IsAlive", false);
+		_Anim.SetTrigger("IsDead");
 	}
 }
