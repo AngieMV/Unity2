@@ -121,16 +121,13 @@ public class PlayerController : Unit
         if (zInput < 0)
         {
             _SpeedMult = Mathf.Clamp(_SpeedMult, 0, _SpeedMult * _BackwardsSpeedMultiplier);
-            Debug.Log($"Moving backwards {_SpeedMult}");
         }
         else if (zInput > 0)
         {
             _SpeedMult = Mathf.Clamp(_SpeedMult, 0, _SpeedMult * _NormalSpeedMultiplier);
-            Debug.Log($"Moving forwards {_SpeedMult}");
         }
         else if (Math.Abs(xInput) > 0) {
             _SpeedMult = Mathf.Clamp(_SpeedMult, 0, _SpeedMult * _SidewaysSpeedMultiplier);
-            Debug.Log($"Moving sidewards {_SpeedMult}");
         }
     }
 
