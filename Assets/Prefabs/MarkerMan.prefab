@@ -1205,7 +1205,7 @@ MonoBehaviour:
   _LaserPrefab: {fileID: 221142580859720497, guid: 1198058277c2c41489be3c2bcb1a6473,
     type: 3}
   _AttackCD: 1
-  _RecoverCD: 0.75
+  _RecoverCD: 0.45
   _AttackRadius: 5
   _UnitsLayerMask:
     serializedVersion: 2
