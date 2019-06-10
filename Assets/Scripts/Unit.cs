@@ -83,7 +83,6 @@ public abstract class Unit : MonoBehaviour
     }
 
     protected bool IsInDanger() {
-        Debug.Log("Is in Danger " + _Health);
         return _Health < _DangerThreshold;
     }
 

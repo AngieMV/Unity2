@@ -15,6 +15,9 @@ public class AIController : Unit
     private float _AttackRadius = 5f;
 
     [SerializeField]
+    private float _ScapeRadius = 10f;
+
+    [SerializeField]
     private LayerMask _UnitsLayerMask;
 
     private IEnumerator _CurrentState;
@@ -93,7 +96,6 @@ public class AIController : Unit
     {
         float recoverTimer = 0f;
         _Agent.SetDestination(_RecoverPosition.transform.position);
-        Debug.Log("State danger::: " + _Agent.remainingDistance);
 
         while (_Agent.pathPending || _Agent.remainingDistance > _Agent.stoppingDistance)
         {
@@ -107,7 +109,6 @@ public class AIController : Unit
             }
             yield return null;
         }
-        Debug.Log("In position " + (_Agent.remainingDistance > _Agent.stoppingDistance));
         _TargetOutpost = null;
         SetState(State_Idle());
     }
@@ -118,7 +119,7 @@ public class AIController : Unit
         _Agent.ResetPath();
         var shootTimer = 0f;
 
-        while (_TargetUnit != null && _TargetUnit.IsAlive && !IsInDanger())
+        while (_TargetUnit != null && _TargetUnit.IsAlive && IsInRange() && !IsInDanger())
         {
             shootTimer += Time.deltaTime;
 
@@ -142,6 +143,12 @@ public class AIController : Unit
             _TargetUnit = null;
             SetState(State_Idle());
         }
+    }
+
+    private bool IsInRange()
+    {
+        float distance = Vector3.Distance(this.gameObject.transform.position, _TargetUnit.transform.position);
+        return  distance < _ScapeRadius;
     }
 
     private IEnumerator State_Dead()
