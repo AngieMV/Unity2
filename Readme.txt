@@ -10,6 +10,6 @@ On this project the new features added to the game are:
 
 - The AI will attack only if the target is inside range.
 
-- If the AI is in danger, they will move to the center of the scene, while recovering slowly health.
+- If the AI is in danger, they will move to the center of the scene, while recovering slowly health. The AI transforms in wolf to recover its power.
 
 The new feature is based on the Nahual, a Mesoamerican urban leyend where a man has the power to change his human shape to animal shape.
