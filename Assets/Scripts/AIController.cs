@@ -31,6 +31,12 @@ public class AIController : Unit
     private Unit _TargetUnit;
     private NavMeshAgent _Agent;
 
+    [SerializeField]
+    private GameObject _Human;
+
+    [SerializeField]
+    private GameObject _Wolf;
+
     /// <summary>
     /// Set a reference to the <see cref="AIController"/> to move in the scene when in <see cref="State_Danger"/>.
     /// </summary>
@@ -40,6 +46,7 @@ public class AIController : Unit
     protected override void UnitAwake()
     {
         _Agent = GetComponent<NavMeshAgent>();
+        _Anim = _Human.GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -62,6 +69,7 @@ public class AIController : Unit
         }
 
         _CurrentState = newState;
+        TransformInWolf(false);
         StartCoroutine(_CurrentState);
     }
 
@@ -110,6 +118,8 @@ public class AIController : Unit
     /// <returns><see cref="IEnumerator"/></returns>
     private IEnumerator State_Danger()
     {
+        TransformInWolf(true);
+
         float recoverTimer = 0f;
         _Agent.SetDestination(_RecoverPosition.transform.position);
 
@@ -125,6 +135,7 @@ public class AIController : Unit
             }
             yield return null;
         }
+
         _TargetOutpost = null;
         SetState(State_Idle());
     }
@@ -199,5 +210,15 @@ public class AIController : Unit
         _Agent.isStopped = true;
         _Agent.ResetPath();
         _TargetOutpost = null;
+    }
+
+    /// <summary>
+    /// Shapeshift this <see cref="AIController"/>.
+    /// </summary>
+    /// <param name="isTransformingInWolf">true if converting it into a wolf, false to converting it into a human.</param>
+    private void TransformInWolf(bool isTransformingInWolf)
+    {
+        _Wolf.SetActive(isTransformingInWolf);
+        _Human.SetActive(!isTransformingInWolf);
     }
 }

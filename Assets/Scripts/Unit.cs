@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public abstract class Unit : MonoBehaviour
 {
 	public bool IsAlive { get; protected set; } = true;
@@ -13,7 +12,6 @@ public abstract class Unit : MonoBehaviour
     [SerializeField]
     protected float _MaxHealth = 100f;
 
-	[SerializeField]
 	protected float _Health;
 
     /// <summary>
