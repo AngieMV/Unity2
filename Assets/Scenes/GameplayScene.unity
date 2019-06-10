@@ -586,6 +586,16 @@ PrefabInstance:
       propertyPath: TeamNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5831954555957392442, guid: f16eec3db90922446ab3078ffb47719d,
+        type: 3}
+      propertyPath: _RecoverPosition
+      value: 
+      objectReference: {fileID: 2009161886}
+    - target: {fileID: 5831954555957392442, guid: f16eec3db90922446ab3078ffb47719d,
+        type: 3}
+      propertyPath: _RecoverCD
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f16eec3db90922446ab3078ffb47719d, type: 3}
 --- !u!1 &1411760378
@@ -729,6 +739,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5831954555957392442, guid: f16eec3db90922446ab3078ffb47719d,
+        type: 3}
+      propertyPath: _RecoverPosition
+      value: 
+      objectReference: {fileID: 2009161886}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f16eec3db90922446ab3078ffb47719d, type: 3}
 --- !u!1001 &1583490061
@@ -802,6 +817,16 @@ PrefabInstance:
         type: 3}
       propertyPath: TeamNumber
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831954555957392442, guid: f16eec3db90922446ab3078ffb47719d,
+        type: 3}
+      propertyPath: _RecoverPosition
+      value: 
+      objectReference: {fileID: 2009161886}
+    - target: {fileID: 5831954555957392442, guid: f16eec3db90922446ab3078ffb47719d,
+        type: 3}
+      propertyPath: _RecoverCD
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f16eec3db90922446ab3078ffb47719d, type: 3}
@@ -899,6 +924,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14359f143cc253b439d3f4749521ced3, type: 3}
+--- !u!1 &2009161885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2009161886}
+  m_Layer: 0
+  m_Name: HealthPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2009161886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009161885}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2117891289
 GameObject:
   m_ObjectHideFlags: 0

@@ -1200,14 +1200,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeamNumber: 0
   _Health: 100
+  _DangerThreshold: 35
   _AttackDamage: 8
   _LaserPrefab: {fileID: 221142580859720497, guid: 1198058277c2c41489be3c2bcb1a6473,
     type: 3}
   _AttackCD: 1
+  _RecoverCD: 0.75
   _AttackRadius: 5
   _UnitsLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  _RecoverPosition: {fileID: 0}
 --- !u!95 &1143555598
 Animator:
   serializedVersion: 3

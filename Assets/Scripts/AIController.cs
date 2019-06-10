@@ -9,6 +9,9 @@ public class AIController : Unit
     private float _AttackCD = 1f;
 
     [SerializeField]
+    private float _RecoverCD = 0.75f;
+
+    [SerializeField]
     private float _AttackRadius = 5f;
 
     [SerializeField]
@@ -18,6 +21,9 @@ public class AIController : Unit
     private Outpost _TargetOutpost;
     private Unit _TargetUnit;
     private NavMeshAgent _Agent;
+
+    [SerializeField]
+    private Transform _RecoverPosition;
 
     protected override void UnitAwake()
     {
@@ -83,13 +89,36 @@ public class AIController : Unit
         SetState(State_Idle());
     }
 
+    private IEnumerator State_Danger()
+    {
+        float recoverTimer = 0f;
+        _Agent.SetDestination(_RecoverPosition.transform.position);
+        Debug.Log("State danger::: " + _Agent.remainingDistance);
+
+        while (_Agent.pathPending || _Agent.remainingDistance > _Agent.stoppingDistance)
+        {
+            recoverTimer += Time.deltaTime;
+            transform.LookAt(_RecoverPosition.transform.position);
+
+            if (recoverTimer >= _RecoverCD)
+            {
+                recoverTimer = 0f;
+                Recover(5);
+            }
+            yield return null;
+        }
+        Debug.Log("In position " + (_Agent.remainingDistance > _Agent.stoppingDistance));
+        _TargetOutpost = null;
+        SetState(State_Idle());
+    }
+
     private IEnumerator State_AttackingEnemy()
     {
         _Agent.isStopped = true;
         _Agent.ResetPath();
         var shootTimer = 0f;
 
-        while (_TargetUnit != null && _TargetUnit.IsAlive)
+        while (_TargetUnit != null && _TargetUnit.IsAlive && !IsInDanger())
         {
             shootTimer += Time.deltaTime;
 
@@ -105,8 +134,14 @@ public class AIController : Unit
             yield return null;
         }
 
-        _TargetUnit = null;
-        SetState(State_Idle());
+        if (IsInDanger())
+        {
+            SetState(State_Danger());
+        }
+        else {
+            _TargetUnit = null;
+            SetState(State_Idle());
+        }
     }
 
     private IEnumerator State_Dead()
@@ -129,8 +164,7 @@ public class AIController : Unit
             }
         }
     }
-
-
+    
     override protected void Die()
     {
         base.Die();

@@ -9,7 +9,10 @@ public abstract class Unit : MonoBehaviour
 	[SerializeField]
 	protected float _Health = 100f;
 
-	[SerializeField]
+    [SerializeField]
+    protected float _DangerThreshold = 35f;
+
+    [SerializeField]
 	protected float _AttackDamage = 8f;
 
 	[SerializeField]
@@ -72,6 +75,16 @@ public abstract class Unit : MonoBehaviour
 			_Health = 0f;
 			Die();
 		}
+    }
+
+    protected void Recover(float health) {
+        _Health += health;
+        Debug.Log("Recovering " + _Health);
+    }
+
+    protected bool IsInDanger() {
+        Debug.Log("Is in Danger " + _Health);
+        return _Health < _DangerThreshold;
     }
 
 	protected virtual void Die()
