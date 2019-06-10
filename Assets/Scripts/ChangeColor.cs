@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Change the color through the time to a component of type <see cref="SkinnedMeshRenderer" />
+/// </summary>
 public class ChangeColor : MonoBehaviour
 {
     [SerializeField]
@@ -13,7 +16,7 @@ public class ChangeColor : MonoBehaviour
 
     private float _Time = 0f;
 
-    void Start()
+    private void Start()
     {
         _FlagRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         _Color1 = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
@@ -25,6 +28,9 @@ public class ChangeColor : MonoBehaviour
         UpdateFlagColor();
     }
 
+    /// <summary>
+    /// Updates dynamically the color to <see cref="_FlagRenderer"/>.
+    /// </summary>
     private void UpdateFlagColor() {
         if (_FlagRenderer.material.color == _Color2)
         {

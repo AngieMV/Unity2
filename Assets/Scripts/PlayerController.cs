@@ -115,6 +115,11 @@ public class PlayerController : Unit
         }
     }
 
+    /// <summary>
+    /// Updates the <see cref="_SpeedMult"/> of the <see cref="PlayerController"/> based on the <see cref="Input"/>.
+    /// </summary>
+    /// <param name="xInput">Value of the virtual axis identified by Horizontal.</param>
+    /// <param name="zInput">Value of the virtual axis identified by Vertical.</param>
     private void UpdateSpeedMult(float xInput, float zInput)
     {
         _SpeedMult = Input.GetKey(_SprintKey) ? _MoveSpeedMult : _NormalSpeedMultiplier;
@@ -131,6 +136,9 @@ public class PlayerController : Unit
         }
     }
 
+    /// <summary>
+    /// Rotate the camera, limiting the movement in the X axis.
+    /// </summary>
     private void ApplyCameraRotation()
     {
         var mouseX = Input.GetAxisRaw("Mouse X");

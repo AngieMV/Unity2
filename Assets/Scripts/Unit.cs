@@ -4,11 +4,21 @@
 public abstract class Unit : MonoBehaviour
 {
 	public bool IsAlive { get; protected set; } = true;
+
 	public int TeamNumber = 0;
+    
+    /// <summary>
+    /// Sets the <see cref="_Health"/>'s max amount.
+    /// </summary>
+    [SerializeField]
+    protected float _MaxHealth = 100f;
 
 	[SerializeField]
-	protected float _Health = 100f;
+	protected float _Health;
 
+    /// <summary>
+    /// Sets a flee threshold.
+    /// </summary>
     [SerializeField]
     protected float _DangerThreshold = 35f;
 
@@ -26,6 +36,8 @@ public abstract class Unit : MonoBehaviour
 
 	protected void Awake()
 	{
+        _Health = _MaxHealth;
+
 		_Anim = GetComponent<Animator>();
 		_Eyes = GetComponentsInChildren<Eye>();
 		foreach (var item in GetComponentsInChildren<Renderer>())
@@ -77,12 +89,25 @@ public abstract class Unit : MonoBehaviour
 		}
     }
 
-    protected void Recover(float health) {
+    /// <summary>
+    /// Let the <see cref="Unit"/> recover <see cref="_Health"/>.
+    /// </summary>
+    /// <param name="health">Amount to recover.</param>
+    protected void Recover(float health)
+    {
         _Health += health;
-        Debug.Log("Recovering " + _Health);
+        if (_Health > _MaxHealth)
+        {
+            _Health = _MaxHealth;
+        }
     }
 
-    protected bool IsInDanger() {
+    /// <summary>
+    /// Returns true if <see cref="Unit"/> is in danger.
+    /// </summary>
+    /// <returns>true if <see cref="_Health"/> is less than <see cref="_DangerThreshold"/></returns>
+    protected bool IsInDanger()
+    {
         return _Health < _DangerThreshold;
     }
 

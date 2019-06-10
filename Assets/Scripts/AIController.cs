@@ -8,12 +8,18 @@ public class AIController : Unit
     [SerializeField]
     private float _AttackCD = 1f;
 
+    /// <summary>
+    /// Recovering rate (cooldown).
+    /// </summary>
     [SerializeField]
     private float _RecoverCD = 0.75f;
 
     [SerializeField]
     private float _AttackRadius = 5f;
 
+    /// <summary>
+    /// Defines a radius where the <see cref="AIController"/> will stop attacking the <see cref="_TargetUnit"/>.
+    /// </summary>
     [SerializeField]
     private float _ScapeRadius = 10f;
 
@@ -25,6 +31,9 @@ public class AIController : Unit
     private Unit _TargetUnit;
     private NavMeshAgent _Agent;
 
+    /// <summary>
+    /// Set a reference to the <see cref="AIController"/> to move in the scene when in <see cref="State_Danger"/>.
+    /// </summary>
     [SerializeField]
     private Transform _RecoverPosition;
 
@@ -37,7 +46,6 @@ public class AIController : Unit
     {
         SetState(State_Idle());
     }
-
 
     private void Update()
     {
@@ -80,6 +88,10 @@ public class AIController : Unit
         SetState(State_CapturingOutpost());
     }
 
+    /// <summary>
+    /// When the <see cref="AIController"/> captures a outpost, it celebrates dancing.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator State_CapturingOutpost()
     {
         while (_TargetOutpost.CurrentTeam != TeamNumber || _TargetOutpost.CaptureValue < 1f)
@@ -92,6 +104,10 @@ public class AIController : Unit
         SetState(State_Idle());
     }
 
+    /// <summary>
+    /// Defines a new state. If the <see cref="AIController"/> is in danger. It will move to the health flag, while recovering itself.
+    /// </summary>
+    /// <returns><see cref="IEnumerator"/></returns>
     private IEnumerator State_Danger()
     {
         float recoverTimer = 0f;
@@ -145,6 +161,10 @@ public class AIController : Unit
         }
     }
 
+    /// <summary>
+    /// Determine when <see cref="_TargetUnit"/> is in range <see cref="_ScapeRadius"/> to continue attacking it.
+    /// </summary>
+    /// <returns>true if enemy is in range.</returns>
     private bool IsInRange()
     {
         float distance = Vector3.Distance(this.gameObject.transform.position, _TargetUnit.transform.position);
@@ -155,7 +175,6 @@ public class AIController : Unit
     {
         yield return null;
     }
-
 
     private void LookForEnemy()
     {
